@@ -1,0 +1,136 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  STAFF
+  MANAGER
+  ADMIN
+}
+
+enum ReportStatus {
+  DRAFT
+  FINALIZED
+}
+
+model User {
+  id        String   @id @default(cuid())
+  name      String
+  email     String   @unique
+  password  String
+  role      Role     @default(STAFF)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  reports   Report[]
+  auditLogs AuditLog[]
+}
+
+model Settings {
+  id           String   @id @default(cuid())
+  siteName     String   @default("Giuseppe's Restaurant")
+  defaultEmail String?
+  logoUrl      String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model Report {
+  id          String       @id @default(cuid())
+  status      ReportStatus @default(DRAFT)
+  isBackdated Boolean      @default(false)
+
+  // Step 1: Report Info
+  venueName   String
+  reportDate  DateTime
+  dayOfWeek   String
+  enteredBy   String
+
+  // Step 2: Financial Totals
+  cash            Decimal?
+  eftpos          Decimal?
+  vouchers        Decimal?
+  hotelChargeback Decimal?
+
+  // Step 3: Sales Channels
+  online     Decimal?
+  phone      Decimal?
+  dineIn     Decimal?
+  takeaway   Decimal?
+  deliveries Decimal?
+
+  // Step 4: Staffing
+  fohJuniors Int?
+  fohRsa     Int?
+  voids      Decimal?
+
+  // Step 5: Adjustments & Notes
+  notes String?
+
+  // Step 6: Smart Additions
+  busyLevel         String?
+  eventRunning      Boolean @default(false)
+  eventName         String?
+  eventType         String?
+  weatherCondition  String?
+  weatherImpactNote String?
+
+  // Step 7: Sign-Off
+  signedOff   Boolean  @default(false)
+  signedOffBy String?
+  signedOffAt DateTime?
+
+  // Timestamps
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  finalizedAt DateTime?
+
+  // Relations
+  createdById String
+  createdBy   User       @relation(fields: [createdById], references: [id])
+  auditLogs   AuditLog[]
+  pdf         ReportPdf?
+}
+
+model ReportPdf {
+  id             String    @id @default(cuid())
+  reportId       String    @unique
+  report         Report    @relation(fields: [reportId], references: [id])
+  generatedAt    DateTime  @default(now())
+  recipientEmail String?
+  storageKey     String?
+  emailedAt      DateTime?
+}
+
+model AuditLog {
+  id        String   @id @default(cuid())
+  action    AuditAction
+  details   String?
+  createdAt DateTime @default(now())
+
+  userId   String
+  user     User    @relation(fields: [userId], references: [id])
+  reportId String?
+  report   Report? @relation(fields: [reportId], references: [id])
+}
+
+enum AuditAction {
+  REPORT_CREATED
+  REPORT_UPDATED
+  REPORT_SIGNED_OFF
+  REPORT_FINALIZED
+  REPORT_REOPENED
+  SETTINGS_UPDATED
+  PDF_GENERATED
+  PDF_GENERATION_FAILED
+  EMAIL_SENT
+  EMAIL_FAILED
+}

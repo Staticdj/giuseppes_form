@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm install:*)",
+      "Bash(npx prisma:*)",
+      "Bash(DATABASE_URL=\"file:./dev.db\" npx tsx prisma/seed.ts)",
+      "Bash(npm test:*)",
+      "Bash(npx next:*)",
+      "Bash(npm list:*)",
+      "Bash(DATABASE_URL=\"file:./dev.db\" npx prisma generate)",
+      "Bash(DATABASE_URL=\"file:./dev.db\" npx prisma db push)"
+    ]
+  }
+}
