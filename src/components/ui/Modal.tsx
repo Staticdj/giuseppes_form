@@ -12,7 +12,6 @@ interface ModalProps {
 }
 
 export function Modal({ open, onClose, title, children, footer }: ModalProps) {
-  // Close on Escape
   useEffect(() => {
     if (!open) return;
     const handler = (e: KeyboardEvent) => {
@@ -32,25 +31,25 @@ export function Modal({ open, onClose, title, children, footer }: ModalProps) {
     >
       {/* Backdrop */}
       <div
-        className="absolute inset-0 bg-black/50"
+        className="absolute inset-0 bg-black/60"
         onClick={onClose}
         aria-hidden="true"
       />
       {/* Panel */}
-      <div className="relative bg-white rounded-xl shadow-xl w-full max-w-md mx-auto overflow-hidden">
-        <div className="flex items-center justify-between px-6 py-4 border-b">
-          <h2 className="text-lg font-semibold text-gray-900">{title}</h2>
+      <div className="relative bg-white dark:bg-giuseppe-card rounded-xl shadow-xl w-full max-w-md mx-auto overflow-hidden">
+        <div className="flex items-center justify-between px-6 py-4 border-b border-gray-200 dark:border-giuseppe-border">
+          <h2 className="text-lg font-semibold text-gray-900 dark:text-giuseppe-cream">{title}</h2>
           <button
             onClick={onClose}
-            className="text-gray-400 hover:text-gray-600 p-1 rounded"
+            className="text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300 p-1 rounded"
             aria-label="Close"
           >
             ✕
           </button>
         </div>
-        <div className="px-6 py-4">{children}</div>
+        <div className="px-6 py-4 text-gray-700 dark:text-gray-300">{children}</div>
         {footer && (
-          <div className="px-6 py-4 border-t flex gap-3 justify-end">
+          <div className="px-6 py-4 border-t border-gray-200 dark:border-giuseppe-border flex gap-3 justify-end">
             {footer}
           </div>
         )}

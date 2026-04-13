@@ -46,7 +46,6 @@ export default async function DashboardPage({ searchParams }: PageProps) {
   const date = parseDate(params.date);
   const dateStr = startOfDay(date).toISOString().split("T")[0];
 
-  // Fetch data based on view
   let viewContent: React.ReactNode;
   let kpis;
 
@@ -71,27 +70,27 @@ export default async function DashboardPage({ searchParams }: PageProps) {
   ]);
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-giuseppe-cream dark:bg-giuseppe-dark">
       <AppHeader />
       <DashboardNav view={view} dateStr={dateStr} />
 
       <main className="max-w-3xl mx-auto px-4 py-5">
-        {/* Page heading + links */}
+        {/* Page heading */}
         <div className="flex items-center justify-between mb-5">
           <div>
-            <h1 className="text-lg font-bold text-gray-900">Dashboard</h1>
-            <p className="text-xs text-gray-400">{kpis.periodLabel}</p>
+            <h1 className="text-lg font-bold text-gray-900 dark:text-giuseppe-cream">Dashboard</h1>
+            <p className="text-xs text-gray-400 dark:text-gray-500">{kpis.periodLabel}</p>
           </div>
           <div className="flex gap-2">
             <Link
               href="/dashboard/reports"
-              className="text-xs text-gray-500 border border-gray-200 px-3 py-1.5 rounded-lg hover:bg-gray-50"
+              className="text-xs text-gray-500 dark:text-gray-400 border border-gray-200 dark:border-giuseppe-border px-3 py-1.5 rounded-lg hover:bg-gray-50 dark:hover:bg-giuseppe-card"
             >
               Reports
             </Link>
             <Link
               href="/settings"
-              className="text-xs text-gray-500 border border-gray-200 px-3 py-1.5 rounded-lg hover:bg-gray-50"
+              className="text-xs text-gray-500 dark:text-gray-400 border border-gray-200 dark:border-giuseppe-border px-3 py-1.5 rounded-lg hover:bg-gray-50 dark:hover:bg-giuseppe-card"
             >
               Settings
             </Link>
@@ -100,11 +99,7 @@ export default async function DashboardPage({ searchParams }: PageProps) {
 
         {/* KPI cards */}
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-5">
-          <KpiCard
-            label="Total Trade"
-            value={fmt(kpis.totalTrade)}
-            accent
-          />
+          <KpiCard label="Total Trade" value={fmt(kpis.totalTrade)} accent />
           <KpiCard label="Avg Daily" value={fmt(kpis.avgDailyTrade)} />
           <KpiCard label="Cash" value={fmt(kpis.totalCash)} />
           <KpiCard label="EFTPOS" value={fmt(kpis.totalEftpos)} />
@@ -119,7 +114,7 @@ export default async function DashboardPage({ searchParams }: PageProps) {
         {/* Main view content */}
         {viewContent}
 
-        {/* Compliance + Notes side by side on wider screens */}
+        {/* Compliance + Notes */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <CompliancePanel data={compliance} />
           <NotesPanel entries={notes} />

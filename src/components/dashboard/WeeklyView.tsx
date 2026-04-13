@@ -20,18 +20,18 @@ function fmtDate(d: Date): string {
 
 function SummaryRow({ label, value }: { label: string; value: string | number }) {
   return (
-    <div className="flex justify-between py-2 border-b border-gray-100 last:border-0 text-sm">
-      <span className="text-gray-500">{label}</span>
-      <span className="font-medium text-gray-900">{value}</span>
+    <div className="flex justify-between py-2 border-b border-gray-100 dark:border-giuseppe-border last:border-0 text-sm">
+      <span className="text-gray-500 dark:text-gray-400">{label}</span>
+      <span className="font-medium text-gray-900 dark:text-giuseppe-cream">{value}</span>
     </div>
   );
 }
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <div className="bg-white rounded-xl border border-gray-200 overflow-hidden mb-4">
-      <div className="px-4 py-2.5 bg-gray-50 border-b border-gray-200">
-        <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wide">
+    <div className="bg-white dark:bg-giuseppe-card rounded-xl border border-gray-200 dark:border-giuseppe-border overflow-hidden mb-4">
+      <div className="px-4 py-2.5 bg-gray-50 dark:bg-giuseppe-darker border-b border-gray-200 dark:border-giuseppe-border">
+        <h3 className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide">
           {title}
         </h3>
       </div>
@@ -47,9 +47,10 @@ export function WeeklyView({ data }: Props) {
   return (
     <div>
       {/* Trade trend chart */}
-      <div className="bg-white rounded-xl border border-gray-200 p-4 mb-4">
-        <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-3">
-          Daily Trade — {data.weekStart.toLocaleDateString("en-AU", { day: "numeric", month: "short" })} to{" "}
+      <div className="bg-white dark:bg-giuseppe-card rounded-xl border border-gray-200 dark:border-giuseppe-border p-4 mb-4">
+        <h3 className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-3">
+          Daily Trade —{" "}
+          {data.weekStart.toLocaleDateString("en-AU", { day: "numeric", month: "short" })} to{" "}
           {new Date(data.weekEnd.getTime() - 1).toLocaleDateString("en-AU", { day: "numeric", month: "short" })}
         </h3>
         <BarChart bars={bars} emptyMessage="No reports this week" />
@@ -62,19 +63,11 @@ export function WeeklyView({ data }: Props) {
             <SummaryRow label="Avg Daily Trade" value={fmt(data.avgDailyTrade)} />
             <SummaryRow
               label="Best Day"
-              value={
-                data.bestDay
-                  ? `${data.bestDay.dayOfWeek} – ${fmt(data.bestDay.total)}`
-                  : "—"
-              }
+              value={data.bestDay ? `${data.bestDay.dayOfWeek} – ${fmt(data.bestDay.total)}` : "—"}
             />
             <SummaryRow
               label="Lowest Day"
-              value={
-                data.worstDay
-                  ? `${data.worstDay.dayOfWeek} – ${fmt(data.worstDay.total)}`
-                  : "—"
-              }
+              value={data.worstDay ? `${data.worstDay.dayOfWeek} – ${fmt(data.worstDay.total)}` : "—"}
             />
             <SummaryRow label="Total Voids" value={fmt(data.totalVoids)} />
           </Section>
@@ -102,11 +95,7 @@ export function WeeklyView({ data }: Props) {
             <SummaryRow label="Drafts" value={String(data.draftCount)} />
             <SummaryRow
               label="Missing Days"
-              value={
-                data.missingDays.length > 0
-                  ? data.missingDays.map((d) => fmtDate(d)).join(", ")
-                  : "None"
-              }
+              value={data.missingDays.length > 0 ? data.missingDays.map((d) => fmtDate(d)).join(", ") : "None"}
             />
           </Section>
 
@@ -114,25 +103,22 @@ export function WeeklyView({ data }: Props) {
             <Section title="Operations">
               <SummaryRow label="Event Days" value={String(data.eventDays)} />
               {data.weatherTags.length > 0 && (
-                <SummaryRow
-                  label="Weather"
-                  value={data.weatherTags.join(", ")}
-                />
+                <SummaryRow label="Weather" value={data.weatherTags.join(", ")} />
               )}
             </Section>
           )}
 
           {/* Day-by-day list */}
           <Section title="Day by Day">
-            <div className="divide-y divide-gray-100">
+            <div className="divide-y divide-gray-100 dark:divide-giuseppe-border">
               {data.days.map((d, i) => (
                 <div key={i} className="py-2 text-sm flex items-center justify-between">
                   <div>
-                    <span className="text-gray-700 font-medium">
+                    <span className="text-gray-700 dark:text-gray-300 font-medium">
                       {fmtDate(d.date)}
                     </span>
                     {d.report && (
-                      <span className="ml-2 text-xs text-gray-400">
+                      <span className="ml-2 text-xs text-gray-400 dark:text-gray-500">
                         {d.report.enteredBy}
                       </span>
                     )}
@@ -140,21 +126,21 @@ export function WeeklyView({ data }: Props) {
                   <div className="flex items-center gap-2">
                     {d.report ? (
                       <>
-                        <span className="font-semibold text-gray-900">
+                        <span className="font-semibold text-gray-900 dark:text-giuseppe-cream">
                           {fmt(d.report.totalTrade)}
                         </span>
                         <span
                           className={`text-xs px-1.5 py-0.5 rounded-full ${
                             d.report.status === "FINALIZED"
-                              ? "bg-green-100 text-green-700"
-                              : "bg-yellow-100 text-yellow-700"
+                              ? "bg-green-100 dark:bg-green-900/40 text-green-700 dark:text-green-400"
+                              : "bg-yellow-100 dark:bg-yellow-900/40 text-yellow-700 dark:text-yellow-400"
                           }`}
                         >
                           {d.report.status === "FINALIZED" ? "Final" : "Draft"}
                         </span>
                       </>
                     ) : (
-                      <span className="text-gray-300 text-xs italic">No report</span>
+                      <span className="text-gray-300 dark:text-gray-600 text-xs italic">No report</span>
                     )}
                   </div>
                 </div>
@@ -163,8 +149,8 @@ export function WeeklyView({ data }: Props) {
           </Section>
         </>
       ) : (
-        <div className="bg-white rounded-xl border border-dashed border-gray-300 p-10 text-center">
-          <p className="text-gray-400 text-sm">No reports found for this week.</p>
+        <div className="bg-white dark:bg-giuseppe-card rounded-xl border border-dashed border-gray-300 dark:border-giuseppe-border p-10 text-center">
+          <p className="text-gray-400 dark:text-gray-500 text-sm">No reports found for this week.</p>
         </div>
       )}
     </div>

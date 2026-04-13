@@ -44,7 +44,7 @@ export function ProgressIndicator({
                 className={[
                   "flex flex-col items-center gap-1 px-2 py-1 rounded-lg transition-colors",
                   isClickable
-                    ? "cursor-pointer hover:bg-orange-50"
+                    ? "cursor-pointer hover:bg-brand-50 dark:hover:bg-giuseppe-border"
                     : "cursor-default",
                 ].join(" ")}
                 aria-current={isCurrent ? "step" : undefined}
@@ -53,10 +53,10 @@ export function ProgressIndicator({
                   className={[
                     "w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold",
                     isCompleted
-                      ? "bg-orange-600 text-white"
+                      ? "bg-brand-600 text-white"
                       : isCurrent
-                      ? "bg-orange-100 text-orange-700 border-2 border-orange-600"
-                      : "bg-gray-100 text-gray-400 border border-gray-200",
+                      ? "bg-brand-100 dark:bg-brand-900/40 text-brand-700 dark:text-brand-400 border-2 border-brand-600"
+                      : "bg-gray-100 dark:bg-giuseppe-border text-gray-400 dark:text-gray-500 border border-gray-200 dark:border-giuseppe-border",
                   ].join(" ")}
                 >
                   {isCompleted ? "✓" : step.id}
@@ -64,7 +64,9 @@ export function ProgressIndicator({
                 <span
                   className={[
                     "text-xs leading-tight text-center whitespace-nowrap",
-                    isCurrent ? "text-orange-700 font-medium" : "text-gray-500",
+                    isCurrent
+                      ? "text-brand-600 dark:text-brand-400 font-medium"
+                      : "text-gray-500 dark:text-gray-400",
                   ].join(" ")}
                 >
                   {step.shortLabel}
@@ -76,7 +78,9 @@ export function ProgressIndicator({
                 <div
                   className={[
                     "h-0.5 w-4 mx-0.5 flex-shrink-0",
-                    isCompleted ? "bg-orange-400" : "bg-gray-200",
+                    isCompleted
+                      ? "bg-brand-400"
+                      : "bg-gray-200 dark:bg-giuseppe-border",
                   ].join(" ")}
                 />
               )}

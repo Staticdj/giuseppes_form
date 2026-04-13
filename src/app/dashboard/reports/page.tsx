@@ -89,14 +89,14 @@ export default async function DashboardReportsPage({ searchParams }: PageProps) 
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-giuseppe-cream dark:bg-giuseppe-dark">
       <AppHeader />
       <main className="max-w-3xl mx-auto px-4 py-6">
         {/* Header */}
         <div className="flex items-center justify-between mb-5">
           <div>
-            <h1 className="text-xl font-bold text-gray-900">Reports</h1>
-            <p className="text-sm text-gray-500 mt-0.5">
+            <h1 className="text-xl font-bold text-gray-900 dark:text-giuseppe-cream">Reports</h1>
+            <p className="text-sm text-gray-500 dark:text-gray-400 mt-0.5">
               {total} report{total !== 1 ? "s" : ""} found
             </p>
           </div>
@@ -112,26 +112,26 @@ export default async function DashboardReportsPage({ searchParams }: PageProps) 
 
         {/* Results */}
         {reports.length === 0 ? (
-          <div className="bg-white rounded-xl border border-dashed border-gray-300 p-10 text-center">
-            <p className="text-gray-400 text-sm">No reports match your filters.</p>
+          <div className="bg-white dark:bg-giuseppe-card rounded-xl border border-dashed border-gray-300 dark:border-giuseppe-border p-10 text-center">
+            <p className="text-gray-400 dark:text-gray-500 text-sm">No reports match your filters.</p>
           </div>
         ) : (
           <div className="space-y-2">
             {reports.map((report) => {
               const statusColor =
                 report.status === "FINALIZED"
-                  ? "bg-green-100 text-green-700"
-                  : "bg-yellow-100 text-yellow-700";
+                  ? "bg-green-100 dark:bg-green-900/40 text-green-700 dark:text-green-400"
+                  : "bg-yellow-100 dark:bg-yellow-900/40 text-yellow-700 dark:text-yellow-400";
               return (
                 <Link
                   key={report.id}
                   href={`/reports/${report.id}`}
-                  className="block bg-white rounded-xl border border-gray-200 px-4 py-3 hover:border-orange-300 hover:shadow-sm transition-all"
+                  className="block bg-white dark:bg-giuseppe-card rounded-xl border border-gray-200 dark:border-giuseppe-border px-4 py-3 hover:border-brand-300 dark:hover:border-brand-700 hover:shadow-sm transition-all"
                 >
                   <div className="flex items-start justify-between gap-3">
                     <div className="min-w-0 flex-1">
                       <div className="flex items-center gap-2 flex-wrap">
-                        <span className="font-semibold text-gray-900 text-sm">
+                        <span className="font-semibold text-gray-900 dark:text-giuseppe-cream text-sm">
                           {report.venueName}
                         </span>
                         <span
@@ -140,22 +140,22 @@ export default async function DashboardReportsPage({ searchParams }: PageProps) 
                           {report.status}
                         </span>
                         {report.isBackdated && (
-                          <span className="text-xs bg-purple-100 text-purple-700 px-1.5 py-0.5 rounded-full">
+                          <span className="text-xs bg-purple-100 dark:bg-purple-900/40 text-purple-700 dark:text-purple-400 px-1.5 py-0.5 rounded-full">
                             Backdated
                           </span>
                         )}
                         {report.eventRunning && (
-                          <span className="text-xs bg-blue-100 text-blue-700 px-1.5 py-0.5 rounded-full">
+                          <span className="text-xs bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-400 px-1.5 py-0.5 rounded-full">
                             Event
                           </span>
                         )}
                       </div>
-                      <p className="text-xs text-gray-500 mt-0.5">
+                      <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
                         {fmtDate(report.reportDate)} · {report.dayOfWeek} · by{" "}
                         {report.enteredBy}
                       </p>
                       {report.busyLevel && (
-                        <p className="text-xs text-gray-400 mt-0.5">
+                        <p className="text-xs text-gray-400 dark:text-gray-500 mt-0.5">
                           {report.busyLevel}
                           {report.weatherCondition
                             ? ` · ${report.weatherCondition}`
@@ -164,10 +164,10 @@ export default async function DashboardReportsPage({ searchParams }: PageProps) 
                       )}
                     </div>
                     <div className="text-right flex-shrink-0">
-                      <p className="font-bold text-gray-900 text-sm">
+                      <p className="font-bold text-gray-900 dark:text-giuseppe-cream text-sm">
                         {sumTrade(report)}
                       </p>
-                      <p className="text-xs text-gray-400">
+                      <p className="text-xs text-gray-400 dark:text-gray-500">
                         {report.createdBy.name}
                       </p>
                     </div>
@@ -190,7 +190,7 @@ export default async function DashboardReportsPage({ searchParams }: PageProps) 
                 ← Previous
               </Button>
             </Link>
-            <span className="text-sm text-gray-500">
+            <span className="text-sm text-gray-500 dark:text-gray-400">
               Page {page} of {pageCount}
             </span>
             <Link href={page < pageCount ? buildPageUrl(page + 1) : "#"}>

@@ -22,16 +22,16 @@ export default async function ReportsPage() {
   const reports = await getReports();
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-giuseppe-cream dark:bg-giuseppe-dark">
       <AppHeader />
 
       <main className="max-w-3xl mx-auto px-4 py-6">
         <div className="flex items-center justify-between mb-6">
           <div>
-            <h1 className="text-2xl font-bold text-gray-900">
+            <h1 className="text-2xl font-bold text-gray-900 dark:text-giuseppe-cream">
               End of Trade Reports
             </h1>
-            <p className="text-sm text-gray-500 mt-1">
+            <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
               {reports.length} report{reports.length !== 1 ? "s" : ""}
             </p>
           </div>
@@ -43,10 +43,10 @@ export default async function ReportsPage() {
         </div>
 
         {reports.length === 0 ? (
-          <div className="bg-white rounded-xl border border-gray-200 p-12 text-center">
+          <div className="bg-white dark:bg-giuseppe-card rounded-xl border border-gray-200 dark:border-giuseppe-border p-12 text-center">
             <p className="text-4xl mb-3">📋</p>
-            <p className="text-gray-500 text-lg">No reports yet.</p>
-            <p className="text-gray-400 text-sm mt-1 mb-6">
+            <p className="text-gray-500 dark:text-gray-400 text-lg">No reports yet.</p>
+            <p className="text-gray-400 dark:text-gray-500 text-sm mt-1 mb-6">
               Create your first End of Trade report.
             </p>
             <Link href="/reports/new">
@@ -59,24 +59,24 @@ export default async function ReportsPage() {
               <Link
                 key={report.id}
                 href={`/reports/${report.id}`}
-                className="block bg-white rounded-xl border border-gray-200 px-5 py-4 hover:border-orange-300 hover:shadow-sm transition-all"
+                className="block bg-white dark:bg-giuseppe-card rounded-xl border border-gray-200 dark:border-giuseppe-border px-5 py-4 hover:border-brand-300 dark:hover:border-brand-700 hover:shadow-sm transition-all"
               >
                 <div className="flex items-start justify-between gap-3">
                   <div className="min-w-0">
                     <div className="flex items-center gap-2 flex-wrap">
-                      <span className="font-semibold text-gray-900">
+                      <span className="font-semibold text-gray-900 dark:text-giuseppe-cream">
                         {report.venueName}
                       </span>
                       {report.isBackdated && (
-                        <span className="text-xs bg-purple-100 text-purple-700 px-2 py-0.5 rounded-full">
+                        <span className="text-xs bg-purple-100 dark:bg-purple-900/40 text-purple-700 dark:text-purple-400 px-2 py-0.5 rounded-full">
                           Backdated
                         </span>
                       )}
                     </div>
-                    <p className="text-sm text-gray-600 mt-0.5">
+                    <p className="text-sm text-gray-600 dark:text-gray-400 mt-0.5">
                       {formatDate(report.reportDate)} · {report.dayOfWeek}
                     </p>
-                    <p className="text-xs text-gray-400 mt-1">
+                    <p className="text-xs text-gray-400 dark:text-gray-500 mt-1">
                       By {report.createdBy.name}
                     </p>
                   </div>

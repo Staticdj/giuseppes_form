@@ -11,13 +11,13 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 
 const variantClasses: Record<Variant, string> = {
   primary:
-    "bg-orange-600 text-white hover:bg-orange-700 active:bg-orange-800 focus:ring-orange-500",
+    "bg-brand-600 text-white hover:bg-brand-700 active:bg-brand-800 focus:ring-brand-500",
   secondary:
-    "bg-white text-gray-700 border border-gray-300 hover:bg-gray-50 active:bg-gray-100 focus:ring-gray-400",
+    "bg-white dark:bg-giuseppe-card text-gray-700 dark:text-gray-200 border border-gray-300 dark:border-giuseppe-border hover:bg-gray-50 dark:hover:bg-giuseppe-border active:bg-gray-100 focus:ring-gray-400",
   danger:
     "bg-red-600 text-white hover:bg-red-700 active:bg-red-800 focus:ring-red-500",
   ghost:
-    "bg-transparent text-gray-600 hover:bg-gray-100 active:bg-gray-200 focus:ring-gray-400",
+    "bg-transparent text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-giuseppe-border active:bg-gray-200 focus:ring-gray-400",
 };
 
 const sizeClasses: Record<Size, string> = {
@@ -40,7 +40,7 @@ export function Button({
       disabled={disabled || loading}
       className={[
         "inline-flex items-center justify-center gap-2 rounded-lg font-medium",
-        "focus:outline-none focus:ring-2 focus:ring-offset-2",
+        "focus:outline-none focus:ring-2 focus:ring-offset-2 dark:focus:ring-offset-giuseppe-dark",
         "disabled:opacity-50 disabled:cursor-not-allowed",
         "transition-colors duration-150",
         variantClasses[variant],

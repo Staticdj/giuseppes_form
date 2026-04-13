@@ -37,24 +37,24 @@ export function BarChart({ bars, emptyMessage = "No data" }: BarChartProps) {
               title={`${bar.label}: ${fmtK(bar.value)}`}
             >
               {/* Value label */}
-              <span className="text-[10px] text-gray-500 leading-none">
+              <span className="text-[10px] text-gray-500 dark:text-gray-400 leading-none">
                 {bar.value > 0 ? fmtK(bar.value) : ""}
               </span>
               {/* Bar */}
               <div className="w-full flex items-end" style={{ height: "80px" }}>
                 <div
                   className={`w-full rounded-t transition-all ${
-                    isEmpty ? "bg-gray-100" : "bg-orange-500"
+                    isEmpty ? "bg-gray-200 dark:bg-giuseppe-border" : "bg-brand-600"
                   }`}
                   style={{ height: isEmpty ? "4px" : `${Math.max(pct, 3)}%` }}
                 />
               </div>
               {/* Label */}
-              <span className="text-[10px] text-gray-600 font-medium leading-none">
+              <span className="text-[10px] text-gray-600 dark:text-gray-400 font-medium leading-none">
                 {bar.label}
               </span>
               {bar.sublabel && (
-                <span className="text-[9px] text-gray-400 leading-none">
+                <span className="text-[9px] text-gray-400 dark:text-gray-500 leading-none">
                   {bar.sublabel}
                 </span>
               )}

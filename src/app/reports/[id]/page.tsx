@@ -38,9 +38,9 @@ function fmtDateTime(d: Date): string {
 
 function Row({ label, value }: { label: string; value: React.ReactNode }) {
   return (
-    <div className="flex justify-between py-2 border-b border-gray-100 last:border-0 text-sm">
-      <span className="text-gray-500">{label}</span>
-      <span className="text-gray-900 font-medium text-right">{value}</span>
+    <div className="flex justify-between py-2 border-b border-gray-100 dark:border-giuseppe-border last:border-0 text-sm">
+      <span className="text-gray-500 dark:text-gray-400">{label}</span>
+      <span className="text-gray-900 dark:text-giuseppe-cream font-medium text-right">{value}</span>
     </div>
   );
 }
@@ -53,9 +53,9 @@ function Section({
   children: React.ReactNode;
 }) {
   return (
-    <div className="bg-white rounded-xl border border-gray-200 overflow-hidden mb-4">
-      <div className="px-5 py-3 bg-gray-50 border-b border-gray-200">
-        <h2 className="font-semibold text-gray-700 text-sm uppercase tracking-wide">
+    <div className="bg-white dark:bg-giuseppe-card rounded-xl border border-gray-200 dark:border-giuseppe-border overflow-hidden mb-4">
+      <div className="px-5 py-3 bg-gray-50 dark:bg-giuseppe-darker border-b border-gray-200 dark:border-giuseppe-border">
+        <h2 className="font-semibold text-gray-700 dark:text-gray-300 text-sm uppercase tracking-wide">
           {title}
         </h2>
       </div>
@@ -80,7 +80,7 @@ export default async function ReportDetailPage({
   const isFinalized = report.status === "FINALIZED";
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-giuseppe-cream dark:bg-giuseppe-dark">
       <AppHeader />
 
       <main className="max-w-2xl mx-auto px-4 py-6">
@@ -88,17 +88,17 @@ export default async function ReportDetailPage({
         <div className="flex items-start justify-between gap-4 mb-6">
           <div>
             <div className="flex items-center gap-2 mb-1">
-              <h1 className="text-xl font-bold text-gray-900">
+              <h1 className="text-xl font-bold text-gray-900 dark:text-giuseppe-cream">
                 {report.venueName}
               </h1>
               <StatusBadge status={report.status as "DRAFT" | "FINALIZED"} />
               {report.isBackdated && (
-                <span className="text-xs bg-purple-100 text-purple-700 px-2 py-0.5 rounded-full">
+                <span className="text-xs bg-purple-100 dark:bg-purple-900/40 text-purple-700 dark:text-purple-400 px-2 py-0.5 rounded-full">
                   Backdated
                 </span>
               )}
             </div>
-            <p className="text-sm text-gray-500">
+            <p className="text-sm text-gray-500 dark:text-gray-400">
               {fmtDate(report.reportDate)}
             </p>
           </div>
@@ -216,14 +216,14 @@ export default async function ReportDetailPage({
               {report.auditLogs.map((log) => (
                 <div key={log.id} className="py-2 text-sm">
                   <div className="flex items-center justify-between">
-                    <span className="font-medium text-gray-700">
+                    <span className="font-medium text-gray-700 dark:text-gray-300">
                       {log.action.replace(/_/g, " ")}
                     </span>
-                    <span className="text-gray-400 text-xs">
+                    <span className="text-gray-400 dark:text-gray-500 text-xs">
                       {fmtDateTime(log.createdAt)}
                     </span>
                   </div>
-                  <p className="text-gray-500 text-xs mt-0.5">
+                  <p className="text-gray-500 dark:text-gray-400 text-xs mt-0.5">
                     {log.user.name} ({log.user.role})
                     {log.details ? ` — ${log.details}` : ""}
                   </p>

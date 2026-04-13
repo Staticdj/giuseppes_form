@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useSession, signOut } from "next-auth/react";
 import { StatusBadge } from "@/components/ui/StatusBadge";
 import { Button } from "@/components/ui/Button";
+import { ThemeToggle } from "@/components/providers/ThemeProvider";
 
 interface ReportHeaderProps {
   venueName?: string;
@@ -12,10 +13,6 @@ interface ReportHeaderProps {
   status?: "DRAFT" | "FINALIZED";
 }
 
-/**
- * Full-page header shown on the report form and detail pages.
- * Shows venue, date, day, status in the centre; nav + user on the sides.
- */
 export function ReportHeader({
   venueName,
   reportDate,
@@ -25,21 +22,21 @@ export function ReportHeader({
   const { data: session } = useSession();
 
   return (
-    <header className="bg-white border-b shadow-sm sticky top-0 z-40">
+    <header className="bg-white dark:bg-giuseppe-darker border-b border-gray-200 dark:border-giuseppe-border shadow-sm sticky top-0 z-40">
       <div className="max-w-3xl mx-auto px-4 py-3 flex items-center justify-between gap-4">
-        {/* Left: Logo / title */}
+        {/* Left: Logo */}
         <a href="/reports" className="flex-shrink-0">
-          <span className="text-orange-600 font-bold text-xl">Giuseppe's</span>
+          <span className="text-brand-600 font-bold text-xl tracking-tight">Giuseppe&apos;s</span>
         </a>
 
         {/* Centre: Report context */}
         <div className="flex-1 text-center min-w-0">
           {venueName || reportDate ? (
             <>
-              <p className="font-semibold text-gray-800 text-sm leading-tight truncate">
+              <p className="font-semibold text-gray-800 dark:text-giuseppe-cream text-sm leading-tight truncate">
                 {venueName ?? "—"}
               </p>
-              <p className="text-gray-500 text-xs leading-tight">
+              <p className="text-gray-500 dark:text-gray-400 text-xs leading-tight">
                 {reportDate ?? "—"}
                 {dayOfWeek ? ` · ${dayOfWeek}` : ""}
                 {status ? (
@@ -50,16 +47,17 @@ export function ReportHeader({
               </p>
             </>
           ) : (
-            <p className="font-semibold text-gray-800 text-sm">
+            <p className="font-semibold text-gray-800 dark:text-giuseppe-cream text-sm">
               End of Trade Report
             </p>
           )}
         </div>
 
-        {/* Right: User + sign out */}
+        {/* Right: Theme toggle + user + sign out */}
         <div className="flex-shrink-0 flex items-center gap-2">
+          <ThemeToggle />
           {session?.user && (
-            <span className="hidden sm:block text-xs text-gray-500 truncate max-w-[120px]">
+            <span className="hidden sm:block text-xs text-gray-500 dark:text-gray-400 truncate max-w-[120px]">
               {session.user.name}
             </span>
           )}
@@ -76,44 +74,41 @@ export function ReportHeader({
   );
 }
 
-/**
- * Simple app nav bar for the reports list and dashboard pages.
- * Shows Dashboard and Settings links for MANAGER and ADMIN roles.
- */
 export function AppHeader() {
   const { data: session } = useSession();
   const role = session?.user?.role;
   const isElevated = role === "MANAGER" || role === "ADMIN";
 
   return (
-    <header className="bg-white border-b shadow-sm">
+    <header className="bg-white dark:bg-giuseppe-darker border-b border-gray-200 dark:border-giuseppe-border shadow-sm">
       <div className="max-w-3xl mx-auto px-4 py-3 flex items-center justify-between gap-3">
         <div className="flex items-center gap-4">
-          <Link href="/reports" className="text-orange-600 font-bold text-xl flex-shrink-0">
+          <Link href="/reports" className="text-brand-600 font-bold text-xl tracking-tight flex-shrink-0">
             Giuseppe&apos;s
           </Link>
           {isElevated && (
             <nav className="flex items-center gap-1 text-sm">
               <Link
                 href="/dashboard"
-                className="px-3 py-1.5 rounded-lg text-gray-600 hover:bg-gray-100 transition-colors"
+                className="px-3 py-1.5 rounded-lg text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-giuseppe-border transition-colors"
               >
                 Dashboard
               </Link>
               <Link
                 href="/settings"
-                className="px-3 py-1.5 rounded-lg text-gray-600 hover:bg-gray-100 transition-colors"
+                className="px-3 py-1.5 rounded-lg text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-giuseppe-border transition-colors"
               >
                 Settings
               </Link>
             </nav>
           )}
         </div>
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2">
+          <ThemeToggle />
           {session?.user && (
-            <span className="hidden sm:block text-sm text-gray-600">
+            <span className="hidden sm:block text-sm text-gray-600 dark:text-gray-400">
               {session.user.name}{" "}
-              <span className="text-xs text-gray-400">({role})</span>
+              <span className="text-xs text-gray-400 dark:text-gray-500">({role})</span>
             </span>
           )}
           <Button

@@ -181,7 +181,7 @@ function WizardInner({
   const currentStepLabel = FORM_STEPS[step - 1]?.label ?? "";
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-giuseppe-cream dark:bg-giuseppe-dark">
       <ReportHeader
         venueName={data.venueName}
         reportDate={data.reportDate}
@@ -190,7 +190,7 @@ function WizardInner({
       />
 
       {/* Progress */}
-      <div className="bg-white border-b py-3 px-4">
+      <div className="bg-white dark:bg-giuseppe-darker border-b border-gray-200 dark:border-giuseppe-border py-3 px-4">
         <ProgressIndicator
           currentStep={step}
           onStepClick={handleStepClick}
@@ -200,10 +200,10 @@ function WizardInner({
       <main className="max-w-xl mx-auto px-4 py-6 pb-32">
         {/* Step heading */}
         <div className="mb-6">
-          <p className="text-xs text-gray-400 uppercase tracking-wide font-medium">
+          <p className="text-xs text-gray-400 dark:text-gray-500 uppercase tracking-wide font-medium">
             Step {step} of {totalSteps}
           </p>
-          <h1 className="text-xl font-bold text-gray-900 mt-0.5">
+          <h1 className="text-xl font-bold text-gray-900 dark:text-giuseppe-cream mt-0.5">
             {currentStepLabel}
           </h1>
         </div>
@@ -229,7 +229,7 @@ function WizardInner({
         )}
 
         {/* Step content */}
-        <div className="bg-white rounded-xl border border-gray-200 p-5 shadow-sm">
+        <div className="bg-white dark:bg-giuseppe-card rounded-xl border border-gray-200 dark:border-giuseppe-border p-5 shadow-sm">
           {step === 1 && <Step1ReportInfo canBackdate={canBackdate} />}
           {step === 2 && <Step2FinancialTotals />}
           {step === 3 && <Step3SalesChannels />}
@@ -243,7 +243,7 @@ function WizardInner({
 
       {/* Fixed bottom navigation */}
       {!isFinalised && (
-        <div className="fixed bottom-0 left-0 right-0 bg-white border-t shadow-lg px-4 py-3 z-30">
+        <div className="fixed bottom-0 left-0 right-0 bg-white dark:bg-giuseppe-darker border-t border-gray-200 dark:border-giuseppe-border shadow-lg px-4 py-3 z-30">
           <div className="max-w-xl mx-auto flex items-center gap-3">
             {step > 1 && (
               <Button

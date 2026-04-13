@@ -17,6 +17,9 @@ interface ReportFiltersProps {
   current: FilterValues;
 }
 
+const inputClass =
+  "w-full border border-gray-300 dark:border-giuseppe-border rounded-lg px-3 py-2 text-sm bg-white dark:bg-giuseppe-card text-gray-900 dark:text-giuseppe-cream focus:outline-none focus:ring-2 focus:ring-brand-600";
+
 export function ReportFilters({ current }: ReportFiltersProps) {
   const router = useRouter();
   const pathname = usePathname();
@@ -45,66 +48,53 @@ export function ReportFilters({ current }: ReportFiltersProps) {
   const hasFilters = Object.values(values).some(Boolean);
 
   return (
-    <div className="bg-white rounded-xl border border-gray-200 p-4 mb-5 space-y-4">
-      <h2 className="text-sm font-semibold text-gray-700">Filter Reports</h2>
+    <div className="bg-white dark:bg-giuseppe-card rounded-xl border border-gray-200 dark:border-giuseppe-border p-4 mb-5 space-y-4">
+      <h2 className="text-sm font-semibold text-gray-700 dark:text-gray-300">Filter Reports</h2>
 
       <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-        {/* Status */}
         <div>
-          <label className="text-xs text-gray-500 block mb-1">Status</label>
-          <select
-            value={values.status}
-            onChange={(e) => set("status", e.target.value)}
-            className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-orange-500"
-          >
+          <label className="text-xs text-gray-500 dark:text-gray-400 block mb-1">Status</label>
+          <select value={values.status} onChange={(e) => set("status", e.target.value)} className={inputClass}>
             <option value="">All</option>
             <option value="FINALIZED">Finalised</option>
             <option value="DRAFT">Draft</option>
           </select>
         </div>
 
-        {/* From date */}
         <div>
-          <label className="text-xs text-gray-500 block mb-1">From</label>
+          <label className="text-xs text-gray-500 dark:text-gray-400 block mb-1">From</label>
           <input
             type="date"
             value={values.from}
             onChange={(e) => set("from", e.target.value)}
-            className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-orange-500"
+            className={inputClass}
           />
         </div>
 
-        {/* To date */}
         <div>
-          <label className="text-xs text-gray-500 block mb-1">To</label>
+          <label className="text-xs text-gray-500 dark:text-gray-400 block mb-1">To</label>
           <input
             type="date"
             value={values.to}
             onChange={(e) => set("to", e.target.value)}
-            className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-orange-500"
+            className={inputClass}
           />
         </div>
 
-        {/* Entered by */}
         <div>
-          <label className="text-xs text-gray-500 block mb-1">Entered By</label>
+          <label className="text-xs text-gray-500 dark:text-gray-400 block mb-1">Entered By</label>
           <input
             type="text"
             value={values.enteredBy}
             onChange={(e) => set("enteredBy", e.target.value)}
             placeholder="Name…"
-            className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-orange-500"
+            className={inputClass}
           />
         </div>
 
-        {/* Busy level */}
         <div>
-          <label className="text-xs text-gray-500 block mb-1">Busy Level</label>
-          <select
-            value={values.busyLevel}
-            onChange={(e) => set("busyLevel", e.target.value)}
-            className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-orange-500"
-          >
+          <label className="text-xs text-gray-500 dark:text-gray-400 block mb-1">Busy Level</label>
+          <select value={values.busyLevel} onChange={(e) => set("busyLevel", e.target.value)} className={inputClass}>
             <option value="">All</option>
             <option value="QUIET">Quiet</option>
             <option value="MODERATE">Moderate</option>
@@ -113,14 +103,9 @@ export function ReportFilters({ current }: ReportFiltersProps) {
           </select>
         </div>
 
-        {/* Event running */}
         <div>
-          <label className="text-xs text-gray-500 block mb-1">Event Running</label>
-          <select
-            value={values.eventRunning}
-            onChange={(e) => set("eventRunning", e.target.value)}
-            className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-orange-500"
-          >
+          <label className="text-xs text-gray-500 dark:text-gray-400 block mb-1">Event Running</label>
+          <select value={values.eventRunning} onChange={(e) => set("eventRunning", e.target.value)} className={inputClass}>
             <option value="">All</option>
             <option value="true">Yes</option>
             <option value="false">No</option>

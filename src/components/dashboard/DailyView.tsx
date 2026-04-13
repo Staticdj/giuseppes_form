@@ -10,18 +10,18 @@ function fmt(v: number): string {
 
 function Row({ label, value }: { label: string; value: React.ReactNode }) {
   return (
-    <div className="flex justify-between py-2 border-b border-gray-100 last:border-0 text-sm">
-      <span className="text-gray-500">{label}</span>
-      <span className="font-medium text-gray-900 text-right">{value}</span>
+    <div className="flex justify-between py-2 border-b border-gray-100 dark:border-giuseppe-border last:border-0 text-sm">
+      <span className="text-gray-500 dark:text-gray-400">{label}</span>
+      <span className="font-medium text-gray-900 dark:text-giuseppe-cream text-right">{value}</span>
     </div>
   );
 }
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <div className="bg-white rounded-xl border border-gray-200 overflow-hidden mb-4">
-      <div className="px-4 py-2.5 bg-gray-50 border-b border-gray-200">
-        <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wide">
+    <div className="bg-white dark:bg-giuseppe-card rounded-xl border border-gray-200 dark:border-giuseppe-border overflow-hidden mb-4">
+      <div className="px-4 py-2.5 bg-gray-50 dark:bg-giuseppe-darker border-b border-gray-200 dark:border-giuseppe-border">
+        <h3 className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide">
           {title}
         </h3>
       </div>
@@ -35,9 +35,9 @@ export function DailyView({ data }: Props) {
 
   if (!report) {
     return (
-      <div className="bg-white rounded-xl border border-dashed border-gray-300 p-10 text-center mb-4">
-        <p className="text-gray-400 text-sm">No report found for this date.</p>
-        <p className="text-gray-300 text-xs mt-1">
+      <div className="bg-white dark:bg-giuseppe-card rounded-xl border border-dashed border-gray-300 dark:border-giuseppe-border p-10 text-center mb-4">
+        <p className="text-gray-400 dark:text-gray-500 text-sm">No report found for this date.</p>
+        <p className="text-gray-300 dark:text-gray-600 text-xs mt-1">
           {date.toLocaleDateString("en-AU", {
             weekday: "long",
             day: "numeric",
@@ -52,8 +52,8 @@ export function DailyView({ data }: Props) {
   const r = report;
   const statusColor =
     r.status === "FINALIZED"
-      ? "bg-green-100 text-green-700"
-      : "bg-yellow-100 text-yellow-700";
+      ? "bg-green-100 dark:bg-green-900/40 text-green-700 dark:text-green-400"
+      : "bg-yellow-100 dark:bg-yellow-900/40 text-yellow-700 dark:text-yellow-400";
 
   return (
     <div>
@@ -63,11 +63,11 @@ export function DailyView({ data }: Props) {
           {r.status}
         </span>
         {r.isBackdated && (
-          <span className="text-xs bg-purple-100 text-purple-700 px-2 py-0.5 rounded-full">
+          <span className="text-xs bg-purple-100 dark:bg-purple-900/40 text-purple-700 dark:text-purple-400 px-2 py-0.5 rounded-full">
             Backdated
           </span>
         )}
-        <span className="text-xs text-gray-400">
+        <span className="text-xs text-gray-400 dark:text-gray-500">
           Entered by {r.enteredBy}
         </span>
       </div>
@@ -80,7 +80,7 @@ export function DailyView({ data }: Props) {
         <Row
           label="Total Trade"
           value={
-            <strong className="text-orange-700">
+            <strong className="text-brand-600 dark:text-brand-400">
               {fmt(r.totalTrade)}
             </strong>
           }
@@ -122,8 +122,8 @@ export function DailyView({ data }: Props) {
         )}
         {r.notes && (
           <div className="py-2 text-sm">
-            <p className="text-gray-500 text-xs mb-1">Notes</p>
-            <p className="text-gray-900 whitespace-pre-wrap text-sm">{r.notes}</p>
+            <p className="text-gray-500 dark:text-gray-400 text-xs mb-1">Notes</p>
+            <p className="text-gray-900 dark:text-giuseppe-cream whitespace-pre-wrap text-sm">{r.notes}</p>
           </div>
         )}
       </Section>

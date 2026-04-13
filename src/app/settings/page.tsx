@@ -10,7 +10,6 @@ export default async function SettingsPage() {
   const session = await getSession();
   if (!session) redirect("/login");
 
-  // Only admins and managers can access settings
   const role = session.user.role;
   if (role !== "ADMIN" && role !== "MANAGER") {
     redirect("/reports");
@@ -19,13 +18,13 @@ export default async function SettingsPage() {
   const settings = await getSettings();
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-giuseppe-cream dark:bg-giuseppe-dark">
       <AppHeader />
       <main className="max-w-xl mx-auto px-4 py-6">
         <div className="flex items-center justify-between mb-6">
           <div>
-            <h1 className="text-xl font-bold text-gray-900">Site Settings</h1>
-            <p className="text-sm text-gray-500 mt-1">
+            <h1 className="text-xl font-bold text-gray-900 dark:text-giuseppe-cream">Site Settings</h1>
+            <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
               Configure default email recipient and site details.
             </p>
           </div>
@@ -36,7 +35,7 @@ export default async function SettingsPage() {
           </Link>
         </div>
 
-        <div className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
+        <div className="bg-white dark:bg-giuseppe-card rounded-xl border border-gray-200 dark:border-giuseppe-border p-6 shadow-sm">
           <SettingsForm
             siteName={settings.siteName}
             defaultEmail={settings.defaultEmail}
@@ -44,7 +43,7 @@ export default async function SettingsPage() {
           />
         </div>
 
-        <div className="mt-6 bg-amber-50 border border-amber-200 rounded-lg p-4 text-sm text-amber-800">
+        <div className="mt-6 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-lg p-4 text-sm text-amber-800 dark:text-amber-400">
           <p className="font-medium mb-1">Email delivery</p>
           <p>
             To enable email delivery, configure <code>SMTP_HOST</code>,{" "}

@@ -73,18 +73,18 @@ export function DashboardNav({ view, dateStr }: DashboardNavProps) {
   ];
 
   return (
-    <div className="bg-white border-b sticky top-0 z-30">
+    <div className="bg-white dark:bg-giuseppe-darker border-b border-gray-200 dark:border-giuseppe-border sticky top-0 z-30">
       <div className="max-w-3xl mx-auto px-4 py-3 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         {/* View toggle */}
-        <div className="flex rounded-lg border border-gray-200 overflow-hidden text-sm">
+        <div className="flex rounded-lg border border-gray-200 dark:border-giuseppe-border overflow-hidden text-sm">
           {views.map(({ key, label }) => (
             <button
               key={key}
               onClick={() => navigate(key, dateStr)}
               className={`flex-1 px-4 py-2 font-medium transition-colors ${
                 view === key
-                  ? "bg-orange-600 text-white"
-                  : "bg-white text-gray-600 hover:bg-gray-50"
+                  ? "bg-brand-600 text-white"
+                  : "bg-white dark:bg-giuseppe-card text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-giuseppe-border"
               }`}
             >
               {label}
@@ -96,23 +96,23 @@ export function DashboardNav({ view, dateStr }: DashboardNavProps) {
         <div className="flex items-center gap-2">
           <button
             onClick={prev}
-            className="p-2 rounded-lg border border-gray-200 text-gray-600 hover:bg-gray-50 text-sm"
+            className="p-2 rounded-lg border border-gray-200 dark:border-giuseppe-border text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-giuseppe-border text-sm"
             aria-label="Previous"
           >
             ←
           </button>
           <button
             onClick={goToday}
-            className="px-3 py-2 text-xs font-medium text-orange-600 border border-orange-200 rounded-lg hover:bg-orange-50"
+            className="px-3 py-2 text-xs font-medium text-brand-600 dark:text-brand-400 border border-brand-200 dark:border-brand-800 rounded-lg hover:bg-brand-50 dark:hover:bg-brand-900/20"
           >
             Today
           </button>
-          <span className="text-sm text-gray-700 font-medium min-w-0 truncate max-w-[200px]">
+          <span className="text-sm text-gray-700 dark:text-gray-300 font-medium min-w-0 truncate max-w-[200px]">
             {formatPeriodLabel(view, dateStr)}
           </span>
           <button
             onClick={next}
-            className="p-2 rounded-lg border border-gray-200 text-gray-600 hover:bg-gray-50 text-sm"
+            className="p-2 rounded-lg border border-gray-200 dark:border-giuseppe-border text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-giuseppe-border text-sm"
             aria-label="Next"
           >
             →
