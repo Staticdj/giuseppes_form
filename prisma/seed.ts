@@ -21,6 +21,18 @@ async function main() {
     },
   });
 
+  const freddie = await prisma.user.upsert({
+  where: { email: "freddie_moala@hotmail.com" },
+  update: {},
+  create: {
+    name: "Freddie",
+    email: "freddie_moala@hotmail.com",
+    password: await bcrypt.hash("Wolverin123", 10),
+    role: Role.ADMIN, // or MANAGER / STAFF
+  },
+});
+
+
   const manager = await prisma.user.upsert({
     where: { email: "manager@giuseppe.com" },
     update: {},

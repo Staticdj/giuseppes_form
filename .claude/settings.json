@@ -9,7 +9,9 @@
       "Bash(npm list:*)",
       "Bash(DATABASE_URL=\"file:./dev.db\" npx prisma generate)",
       "Bash(DATABASE_URL=\"file:./dev.db\" npx prisma db push)",
-      "Bash(npm show:*)"
+      "Bash(npm show:*)",
+      "Bash(node -e 'const {PrismaClient} = require\\('\\\\''@prisma/client'\\\\''\\); const p = new PrismaClient\\(\\); p.user.findMany\\({select:{email:true,role:true}}\\).then\\(u=>console.log\\(JSON.stringify\\(u,null,2\\)\\)\\).finally\\(\\(\\)=>p.$disconnect\\(\\)\\)')",
+      "Bash(node -e ':*)"
     ]
   }
 }
