@@ -236,7 +236,7 @@ export async function finaliseReport(
     reportId,
     parsed.data.signedOffBy,
     session.user.id,
-    session.user.name ?? session.user.email
+    session.user.name ?? session.user.email ?? "Unknown"
   );
 
   if (!outcome.success) {

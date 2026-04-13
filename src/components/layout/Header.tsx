@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useSession, signOut } from "next-auth/react";
 import { StatusBadge } from "@/components/ui/StatusBadge";
 import { Button } from "@/components/ui/Button";
@@ -76,22 +77,43 @@ export function ReportHeader({
 }
 
 /**
- * Simple app nav bar for the reports list page.
+ * Simple app nav bar for the reports list and dashboard pages.
+ * Shows Dashboard and Settings links for MANAGER and ADMIN roles.
  */
 export function AppHeader() {
   const { data: session } = useSession();
+  const role = session?.user?.role;
+  const isElevated = role === "MANAGER" || role === "ADMIN";
 
   return (
     <header className="bg-white border-b shadow-sm">
-      <div className="max-w-3xl mx-auto px-4 py-3 flex items-center justify-between">
-        <span className="text-orange-600 font-bold text-xl">Giuseppe's</span>
+      <div className="max-w-3xl mx-auto px-4 py-3 flex items-center justify-between gap-3">
+        <div className="flex items-center gap-4">
+          <Link href="/reports" className="text-orange-600 font-bold text-xl flex-shrink-0">
+            Giuseppe&apos;s
+          </Link>
+          {isElevated && (
+            <nav className="flex items-center gap-1 text-sm">
+              <Link
+                href="/dashboard"
+                className="px-3 py-1.5 rounded-lg text-gray-600 hover:bg-gray-100 transition-colors"
+              >
+                Dashboard
+              </Link>
+              <Link
+                href="/settings"
+                className="px-3 py-1.5 rounded-lg text-gray-600 hover:bg-gray-100 transition-colors"
+              >
+                Settings
+              </Link>
+            </nav>
+          )}
+        </div>
         <div className="flex items-center gap-3">
           {session?.user && (
-            <span className="text-sm text-gray-600">
+            <span className="hidden sm:block text-sm text-gray-600">
               {session.user.name}{" "}
-              <span className="text-xs text-gray-400">
-                ({session.user.role})
-              </span>
+              <span className="text-xs text-gray-400">({role})</span>
             </span>
           )}
           <Button

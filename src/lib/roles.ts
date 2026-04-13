@@ -31,6 +31,10 @@ export function canEditReport(role: Role, reportStatus: string): boolean {
   return true;
 }
 
+export function canViewDashboard(role: Role): boolean {
+  return ELEVATED_ROLES.includes(role);
+}
+
 export function assertRole(userRole: Role, required: Role[]): void {
   if (!required.includes(userRole)) {
     throw new Error("FORBIDDEN");

@@ -1,0 +1,87 @@
+import type { NoteEntry } from "@/lib/dashboard/types";
+
+interface Props {
+  entries: NoteEntry[];
+}
+
+const busyColors: Record<string, string> = {
+  QUIET: "bg-blue-100 text-blue-700",
+  MODERATE: "bg-yellow-100 text-yellow-700",
+  BUSY: "bg-orange-100 text-orange-700",
+  VERY_BUSY: "bg-red-100 text-red-700",
+};
+
+const weatherIcons: Record<string, string> = {
+  FINE: "☀️",
+  CLOUDY: "☁️",
+  RAIN: "🌧️",
+  STORM: "⛈️",
+  HOT: "🌡️",
+};
+
+export function NotesPanel({ entries }: Props) {
+  if (entries.length === 0) {
+    return (
+      <div className="bg-white rounded-xl border border-gray-200 overflow-hidden mb-4">
+        <div className="px-4 py-2.5 bg-gray-50 border-b border-gray-200">
+          <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wide">
+            Recent Notes & Operations
+          </h3>
+        </div>
+        <div className="p-4 text-center text-sm text-gray-400">
+          No recent notes or operations.
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="bg-white rounded-xl border border-gray-200 overflow-hidden mb-4">
+      <div className="px-4 py-2.5 bg-gray-50 border-b border-gray-200">
+        <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wide">
+          Recent Notes & Operations
+        </h3>
+      </div>
+      <div className="divide-y divide-gray-100">
+        {entries.map((entry) => (
+          <div key={entry.reportId} className="px-4 py-3">
+            <div className="flex items-center gap-2 mb-1.5">
+              <span className="text-xs font-medium text-gray-600">
+                {new Date(entry.date).toLocaleDateString("en-AU", {
+                  weekday: "short",
+                  day: "numeric",
+                  month: "short",
+                })}
+              </span>
+              {entry.busyLevel && (
+                <span
+                  className={`text-xs px-1.5 py-0.5 rounded-full font-medium ${
+                    busyColors[entry.busyLevel] ?? "bg-gray-100 text-gray-600"
+                  }`}
+                >
+                  {entry.busyLevel.replace("_", " ")}
+                </span>
+              )}
+              {entry.weatherCondition && (
+                <span className="text-xs text-gray-500">
+                  {weatherIcons[entry.weatherCondition] ?? ""}{" "}
+                  {entry.weatherCondition}
+                </span>
+              )}
+              {entry.eventRunning && entry.eventName && (
+                <span className="text-xs bg-purple-100 text-purple-700 px-1.5 py-0.5 rounded-full">
+                  {entry.eventName}
+                </span>
+              )}
+            </div>
+            {entry.notes && (
+              <p className="text-xs text-gray-600 italic leading-relaxed">
+                &ldquo;{entry.notes}&rdquo;
+              </p>
+            )}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
